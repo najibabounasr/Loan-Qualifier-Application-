@@ -104,15 +104,38 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
 
     return bank_data_filtered
 
+# This question will ask the user whether or not they would like to save their qualifying loan data to a .csv file
 
+# This data saves the 
 def save_qualifying_loans(qualifying_loans):
     """Saves the qualifying loans to a CSV file.
 
     Args:
         qualifying_loans (list of lists): The qualifying bank loans.
     """
-    csvpath = Path('qualifying_loans.csv')
-    save_csv(csvpath, qualifying_loans)
+    if (len(qualifying_loans)) == 0 :
+        print("As you do not qualify for any loans, a data sheet of qualified loans cannot be created. Program will close.")
+    else :
+        confirm_save = questionary.confirm("Would you like to save your qualifying loan data to a .csv file?").ask()
+        if confirm_save == str('Yes') :
+            confirm_save = True
+        elif confirm_save == str('No'):
+            confirm_save = False
+        elif confirm_save == True :
+            csvpath = Path('qualifying_loans.csv')
+            save_csv(csvpath, qualifying_loans)
+        elif confirm_save == False : 
+            print("A datasheet was not created with your qualified loans. At your request. ")
+        else : 
+            print("Error, please try again")
+
+    
+    
+    
+
+
+
+
 
 
 def run():
@@ -131,7 +154,6 @@ def run():
 
     # Save qualifying loans
     save_qualifying_loans(qualifying_loans)
-
 
 if __name__ == "__main__":
     fire.Fire(run)
