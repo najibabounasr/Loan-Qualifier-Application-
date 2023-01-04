@@ -10,11 +10,11 @@ import sys
 import fire
 import questionary
 from pathlib import Path
-
 from qualifier.utils.fileio import (
     load_csv,
     save_csv
 )
+
 
 from qualifier.utils.calculators import (
     calculate_monthly_debt_ratio,
@@ -113,6 +113,8 @@ def save_qualifying_loans(qualifying_loans):
     Args:
         qualifying_loans (list of lists): The qualifying bank loans.
     """
+    output_path = 0
+    
     if (len(qualifying_loans)) == 0 :
         print("As you do not qualify for any loans, a data sheet of qualified loans cannot be created. Program will close.")
     else :
@@ -122,12 +124,16 @@ def save_qualifying_loans(qualifying_loans):
         elif confirm_save == str('No'):
             confirm_save = False
         elif confirm_save == True :
-            csvpath = Path('qualifying_loans.csv')
-            save_csv(csvpath, qualifying_loans)
+            output_path = questionary.text("Enter a file path to the location you wish to hold your data in (.csv):").ask()
+            if not output_path.exists():
+                sys.exit(f"Oops! Can't find this path: {csvpath}")
+            output_path = Path(output_path)
+            save_csv(output_path, qualifying_loans)
         elif confirm_save == False : 
             print("A datasheet was not created with your qualified loans. At your request. ")
         else : 
             print("Error, please try again")
+    return output_path
 
     
     
