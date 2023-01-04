@@ -114,7 +114,7 @@ def save_qualifying_loans(qualifying_loans):
         qualifying_loans (list of lists): The qualifying bank loans.
     """
     output_path = 0
-    
+    confirm_save = 0 
     if (len(qualifying_loans)) == 0 :
         print("As you do not qualify for any loans, a data sheet of qualified loans cannot be created. Program will close.")
     else :
@@ -125,22 +125,16 @@ def save_qualifying_loans(qualifying_loans):
             confirm_save = False
         elif confirm_save == True :
             output_path = questionary.text("Enter a file path to the location you wish to hold your data in (.csv):").ask()
-            if not output_path.exists():
-                sys.exit(f"Oops! Can't find this path: {csvpath}")
             output_path = Path(output_path)
-            save_csv(output_path, qualifying_loans)
+            if not output_path.exists():
+                sys.exit(f"Oops! Can't find this path: {output_path}")
+            else : 
+                save_csv(output_path, qualifying_loans)
         elif confirm_save == False : 
             print("A datasheet was not created with your qualified loans. At your request. ")
         else : 
             print("Error, please try again")
-    return output_path
-
-    
-    
-    
-
-
-
+    return output_path, confirm_save
 
 
 
