@@ -1,6 +1,7 @@
 # Loan Qualifier Application
 
-This is a loan qualifier application that will allow users to view which loans they would qualify for, from a set of lenders. The application will create a '.csv' file containing all the loans the user qualifies for, out of a larger data bank of 'lenders' and 'loan qualifications'. The process is completed quickly and seamlessly, by asking the user on the command line about their personal information, which will be used to automatially asses their eligibility for the loans. 
+## 
+> This is a loan qualifier application that will allow users to view which loans they would qualify for, from a set of lenders. The application will create a '.csv' file containing all the loans the user qualifies for, out of a larger data bank of 'lenders' and 'loan qualifications'. The process is completed quickly and seamlessly, by asking the user on the command line about their personal information, which will be used to automatially asses their eligibility for the loans. 
 ---
 
 ## Technologies
