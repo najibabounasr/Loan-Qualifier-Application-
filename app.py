@@ -104,26 +104,45 @@ def find_qualifying_loans(bank_data, credit_score, debt, income, loan, home_valu
 
     return bank_data_filtered
 
-# This question will ask the user whether or not they would like to save their qualifying loan data to a .csv file
 
-# This data saves the 
+
+# This function is the function created for the project, and is the largest function in the 
+# file!
 def save_qualifying_loans(qualifying_loans):
     """Saves the qualifying loans to a CSV file.
 
     Args:
         qualifying_loans (list of lists): The qualifying bank loans.
     """
+    # Here, I set both 'output_path' and 'confirm_save' to 0, so that
+    # the program does not produce an error message (as we would then be
+    # referencing these two variables before we define them. The simplest
+    # solution would be to set them to zero!)
+    
+
+    
+
     output_path = 0
     confirm_save = 0 
+# Here, I use 'len' to confirm the number of qualifying loans, if the number 
+    # of qualifying loans is zero, there is no point in creating a .csv file, 
+    # and the function does not attempt to create a .csv file, explaining to the user what just happened with
+    # a text output
     if (len(qualifying_loans)) == 0 :
         print("As you do not qualify for any loans, a data sheet of qualified loans cannot be created. Program will close.")
     else :
+        # Due to multiple bugs, I have chosen to stick with first confirming if the user had
+        # 'yes' or 'no', and THEN turning the input into 'true' or 'false', this was the easiest fix, 
+        # And this is the reason it is implemented in this function.
         confirm_save = questionary.confirm("Would you like to save your qualifying loan data to a .csv file?").ask()
         if confirm_save == str('Yes') :
             confirm_save = True
         elif confirm_save == str('No'):
             confirm_save = False
         elif confirm_save == True :
+            # here, I ask the user where he wishes to store the csv data (which file). there is
+            # a prompt (I borrowed from earlier in the code), which follows and tells the user the computer
+            # cannot find the path, if the user inputs an invalid path. 
             output_path = questionary.text("Enter a file path to the location you wish to hold your data in (.csv):").ask()
             output_path = Path(output_path)
             if not output_path.exists():
@@ -135,7 +154,6 @@ def save_qualifying_loans(qualifying_loans):
         else : 
             print("Error, please try again")
     return output_path, confirm_save
-
 
 
 def run():
